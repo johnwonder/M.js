@@ -39,6 +39,41 @@
 
 	}
 
+	extend(Object,{
+
+		foreach: function(obj,fn,bind){
+					for(var key in obj){
+				if(has.call(obj,key)) fn.call(bind,key,obj[key],obj);
+				}
+			}
+		}
+	});
+
+	extend(Date,{
+
+		now:function(){
+			rturn +new Date;
+		}
+	});
+
+	function setOpacity(ele,value){
+		if(value <= 1) value *= 100;
+		if(ele.style.opacity != undefined) ele.style.opacity = value/100;
+		else if(ele.style.filter != undefined) ele.style.filter = "alpha(opacity="+parseInt(value)+")"; 
+	}
+
+	function getOffset(ele,root){
+		var left = 0,top =0,width = ele.offsetWidth,height = ele.offsetHeight;
+
+		do{
+			left +=ele.offsetLeft;
+			top += ele.offsetTop;
+			ele = ele.offsetParent;
+		}while(ele && ele != root);
+
+		return {left:left,top:top,width :width, height:height };
+	}
+
 
 	function M(){
 
