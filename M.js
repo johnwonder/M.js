@@ -105,7 +105,40 @@
 		},
 
 		each:function(obj,fn,args){
+			var name,i =0,
+			length = obj.length,//对象数组长度
+			isObj = length === undefined ; //再判断是否是方法
+			if(args){
+				if(isObj){
+					for(name in obj){
+						if(fn.apply(obj[name],args) === false){
+							break;
+						}
+					}
+				}else{
+					for(;i < length;){
+						if(fn.apply(obj[i++],args) ===false){
+							break;
+						}
+					}
+				}
+			}else{
+				if(isObj){
+					for(name in obj){
+						if(fn.call(obj[name],name,obj[name]) === false){
+							break;
+						}
+					}
+				}else{
+					for(; i<length;){
+						if(fn.call(obj[i],i,obj[i++]) === false){
+							break;
+						}
+					}
+				}
+			}
 
+			return obj;
 		},
 
 
